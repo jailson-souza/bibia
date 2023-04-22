@@ -1,18 +1,13 @@
-import BaseService from '@biblia/providers/_base/services/BaseService'
-import ABibliaApiAdapter from '@biblia/providers/adapters/ABibliaApiAdapter'
-import NotFoundError from '@biblia/shared/domain/_base/erros/NotFoundError'
-import Version from '@biblia/shared/domain/biblia/models/Version'
-import IDoGetVersionsUseCase from '@biblia/shared/domain/biblia/useCase/IDoGetVersionsUseCase'
+import IBaseHttpConnector from '@biblia/providers/base/adapters/interfaces/IBaseHttpConnector'
+import BaseService from '@biblia/providers/base/services/BaseService'
+import { BaseHttpError } from '@biblia/providers/base/errors/HttpError'
+import Version from '@biblia/shared/domain/entity/biblia/models/Version'
+import IDoGetVersionsUseCase from '@biblia/shared/domain/entity/biblia/useCase/IDoGetVersionsUseCase'
 export default class DoGetVersionsUseCase extends BaseService implements IDoGetVersionsUseCase {
-   constructor() {
-      super(new ABibliaApiAdapter())
+   constructor(bibliApiConnector: IBaseHttpConnector) {
+      super(bibliApiConnector)
    }
-   async execute(): Promise<Version[]> {
-      try {
-         const response = await this.http.api.get<Version[]>('/versions')
-         return response.data
-      } catch (error: any) {
-         throw new NotFoundError(error?.message)
-      }
+   async execute(): Promise<Version[] | BaseHttpError> {
+      return this.http.get('/versions')
    }
 }

@@ -28,7 +28,7 @@ interface IUseHomeParams {
 
 export default function useHome({ abibliaApiConnector }: IUseHomeParams) {
    /* useCase */
-   const getBooks = useMemo(() => new DoGetBooksUseCase(), [])
+   const getBooks = useMemo(() => new DoGetBooksUseCase(abibliaApiConnector), [abibliaApiConnector])
    const getBookByAbbrev = useMemo(() => new DoGetBookByAbbrevUseCase(abibliaApiConnector), [abibliaApiConnector])
 
    /* books's hooks */
