@@ -1,7 +1,6 @@
-import axios from 'axios'
-import AxiosHttpConnector from '../base/adapters/AxiosHttpConnector'
-export default class ABibliaApiConnector extends AxiosHttpConnector {
+import FetchHttpConnector from '../base/adapters/FetchHttpConnector'
+export default class ABibliaApiConnector extends FetchHttpConnector {
    constructor() {
-      super(axios.create({ baseURL: 'https://www.abibliadigital.com.br/api' }))
+      super('https://www.abibliadigital.com.br/api')
    }
 }

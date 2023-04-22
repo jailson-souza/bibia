@@ -44,6 +44,7 @@ export default function useHome({ abibliaApiConnector }: IUseHomeParams) {
       setIsLoadingBooks(true)
       setBookError({} as IbookError)
       const response = await getBooks.execute()
+      console.log('response', response)
       if (response instanceof BaseHttpError) {
          setBooks([])
          setBookError({ message: response.message } as IbookError)
